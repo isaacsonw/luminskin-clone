@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
+import { useQuery } from '@apollo/client';
+import { GET_PRODUCTS } from './queries';
+import { Products } from './components/Products';
 import './App.css';
 
-function App() {
+const App = () => {
+  const [productList, setProductLists] = useState([]);
+
+  const { data, loading, error } = useQuery(GET_PRODUCTS);
+
+  useEffect(() => {
+    if (error) {
+      return 'Error fetching data!';
+    }
+    if (loading) {
+      return 'Loading...';
+    }
+    const { products } = data;
+    setProductLists(products);
+  }, [data, error, loading]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Products products={productList} />
     </div>
   );
-}
+};
 
 export default App;
