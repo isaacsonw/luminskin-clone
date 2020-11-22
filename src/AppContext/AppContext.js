@@ -20,10 +20,26 @@ const AppContextWrapper = ({ children }) => {
   });
 
   const handleSetCurrency = (value) => {
+    // const newArr = [...cartItems];
+    const items = cartItems.map((item) => {
+      let newProduct = productList.filter((product) =>
+        product.title.toLowerCase().includes(item.title.toLowerCase())
+      );
+      return {
+        ...newProduct,
+      };
+    });
+    console.log(items);
+    // newArr.push(items);
+    // setCartItem(newArr);
     setCurrency(value);
   };
   const handleSetCartItem = (newCartItem) => {
-    setCartItem([...cartItems, newCartItem]);
+    const product = productList.find(
+      (item) => newCartItem.title === item.title
+    );
+    // console.log(product);
+    setCartItem([...cartItems, product]);
   };
 
   const handleRemoveCartItem = (id) => {
