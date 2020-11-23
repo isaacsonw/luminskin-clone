@@ -21,6 +21,7 @@ export const Cart = forwardRef((props, ref) => {
     currencyEnum,
     cartItems,
     handleRemoveCartItem,
+    total,
   } = useContext(AppContext);
 
   useEffect(() => {
@@ -28,15 +29,6 @@ export const Cart = forwardRef((props, ref) => {
   }, [currencyEnum]);
 
   const [value, setValue] = useState(false);
-  const [sum, setSum] = useState(0);
-
-  useEffect(() => {
-    const price = cartItems.map((item) => item.price);
-    let sum = price.reduce(function (a, b) {
-      return a + b;
-    }, 0);
-    setSum(sum);
-  }, [cartItems]);
 
   const showCart = () => {
     setValue(true);
@@ -102,14 +94,14 @@ export const Cart = forwardRef((props, ref) => {
                         <span>-</span>
                       </div>
                       <div className="counter--value">
-                        <span>2</span>
+                        <span>{item.count}</span>
                       </div>
                       <div>
                         <span>+</span>
                       </div>
                     </div>
                     <h1>
-                      {currency} {formatter.format(item.price)}
+                      {currency} {formatter.format(item.price * item.count)}
                     </h1>
                   </div>
                 </div>
@@ -119,7 +111,9 @@ export const Cart = forwardRef((props, ref) => {
       <div className="action__btn">
         <div className="total">
           <h3>Total</h3>
-          <h3>{formatter.format(sum)}</h3>
+          <h3>
+            {currency} {formatter.format(total)}
+          </h3>
         </div>
         <button className="btn btn__1">
           MAKE THIS A SUBSCRIPTION (SAVE 20%)
