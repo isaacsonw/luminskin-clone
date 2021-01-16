@@ -48,27 +48,72 @@ const AppContextWrapper = ({ children }) => {
     setSum(sum);
   };
 
+  const countOwner = JSON.parse(localStorage.getItem('count')) || [];
+  // console.log(countOwner);
+
   const handleSetCartItem = (newCartItem) => {
     const product = productList.find(
       (item) => newCartItem.title === item.title
     );
-
     pushToArray(cartItems, product);
     handleTotal();
   };
 
   function pushToArray(arr, obj) {
     const index = arr.findIndex((e) => e.title === obj.title);
-    let newData = { ...obj, count: itemCount };
+    let newData = { ...obj, count: 1 };
+
     if (index > -1) {
-      setCount(() => itemCount + 1);
-      newData.count = itemCount + 1;
+      // for (let i = 0; i < arr.length; i++) {
+      //   if (arr[index].title === obj.title) {
+      //     // ++arr[index].count;
+      //     console.log(++arr[index].count, 'HERERERER');
+      //     break;
+      //   }
+      // }
+
+      newData.count += 1;
       arr[index] = newData;
-      console.log(newData.count);
+      console.log(newData);
+      return newData;
+
+      // if (newData.title === obj.title) {
+      //   let itemCount = JSON.parse(localStorage.getItem('count')) || [];
+      //   itemCount
+      //     .filter((item) => item.id === newData.title)
+      //     .map((item) => item.count++);
+      //   localStorage.setItem('count', JSON.stringify([...itemCount]));
+
+      //   for (let i = 0; i < itemCount.length; i++) {
+      //     if (newData.title === itemCount[i].id) {
+      //       itemCount[i].count++;
+      //       break;
+      //     }
+      //   }
+      //   localStorage.setItem('count', JSON.stringify([...itemCount]));
+      // }
     } else {
-      setCount(1);
-      newData.count = 1;
-      setCartItem([...cartItems, newData]);
+      setCartItem([...arr, newData]);
+      // if (countOwner.findIndex((e) => e.id === newData.title) === -1) {
+      // const countArr = [...countOwner];
+      // const data = {
+      //   id: newData.title,
+      //   count: 1,
+      // };
+
+      // localStorage.setItem('count', JSON.stringify(countArr));
+      // }
+      // countArr.push(data);
+      // for (var i = 0; i < countArr.length; i++) {
+      //   if (newData.title !== countArr[i].id) {
+      //     countArr[i].id = newData.title;
+      //     countArr[i].count = 1;
+
+      //     break;
+      //   }
+      // }
+
+      // localStorage.setItem('count', JSON.stringify(countArr));
     }
   }
 
@@ -102,6 +147,7 @@ const AppContextWrapper = ({ children }) => {
         handleSetCartItem,
         refetch,
         cartItems,
+        itemCount,
         currencyEnum,
         handleRemoveCartItem,
         total,
