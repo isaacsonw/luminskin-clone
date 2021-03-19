@@ -19,9 +19,17 @@ export const CartWrapper = styled.div`
     font-family: FF Bau Regular, sans-serif;
     font-weight: 400;
   }
+  .cart-overlay {
+    height: 100%;
+    width: 70%;
+    position: absolute;
+    background-color: transparent;
+    left: 0;
+    z-index: 555555;
+  }
   .cart,
   .action__btn {
-    max-width: 550px;
+    max-width: 30%;
     background-color: #f2f2ef;
     width: 100%;
     height: 100%;
@@ -121,11 +129,11 @@ export const CartWrapper = styled.div`
     align-items: center;
     .counter {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       border: 0.5px solid #bcbcbc;
       padding: 7px;
-      width: 76px;
+      width: 86px;
       font-size: 13px;
       .plus,
       .minus {

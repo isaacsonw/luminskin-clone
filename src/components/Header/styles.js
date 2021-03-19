@@ -4,8 +4,13 @@ export const HeaderWrapper = styled.div`
   background: #f5f5f4;
   ul {
     list-style: none;
+    display: flex;
+
+    align-items: center;
     li {
-      display: inline;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       padding: 0 1em;
       cursor: pointer;
       font-weight: 400;
